@@ -1,0 +1,21 @@
+.header_wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem .5rem;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+
+    .menu {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+
+        a {
+            color: black;
+        }
+
+        .active {
+            border-bottom: 2px solid #007eff;
+        }
+    }
+}
