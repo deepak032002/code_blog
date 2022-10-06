@@ -41,7 +41,7 @@ const Header = () => {
 
   return (
     <div
-      className={`${styles.header_wrapper} container mx-auto sticky top-0 bg-white z-1`}
+      className={`${styles.header_wrapper} w-full sticky top-0 bg-white z-10`}
     >
       <div className="logo">
         <FontAwesomeIcon icon={faCode} /> Code
@@ -62,7 +62,7 @@ const Header = () => {
             Editor
           </a>
         </Link>
-        {state?.connectWallet?.isConnected ? (
+        {/* {state?.connectWallet?.isConnected ? (
           <>
             <p>
               {state.connectWallet?.acc?.substr(0, 5)}....
@@ -82,7 +82,7 @@ const Header = () => {
           >
             Connect To Wallet
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

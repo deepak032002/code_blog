@@ -1,18 +1,19 @@
-import connectToDb from "../../middleware/db"
-import Blog from "../../model/blog"
+import connectToDb from "../../../middleware/db"
+import Blog from "../../../model/blog"
 import {faker}  from '@faker-js/faker'
 
 const handler = async (req, res) => {
+    console.log(req.body)
     if (req.method == 'POST') {
-
         const obj = {
-            title: faker.lorem.lines(2),
-            slug: faker.lorem.slug(4),
-            tags: [faker.lorem.word(4), faker.lorem.word(4)],
-            image: faker.image.abstract(330, 200, true),
-            metadesc: faker.lorem.paragraph(3),
+            title: req.body.title,
+            slug: req.body.slug,
+            tags: req.body.tags,
+            image: req.body.image,
+            metadesc: req.body.metadesc,
             author: faker.name.fullName(),
-            content: '<h1 className="h1">Hello Code</h1>'
+            author_image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            content: req.body.content
         }
 
         const data = new Blog(obj)

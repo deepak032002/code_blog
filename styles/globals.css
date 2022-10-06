@@ -4,6 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.ck.ck-content{
+  height: 33rem;
+}
+
+.ck.ck-content::-webkit-scrollbar{
+  width: 5px;
+  background-color: #999;
+}
+
+.ck.ck-content::-webkit-scrollbar-thumb{
+  background-color: #777;
+}
+
 .cookie_consent_wrapper_popup {
   animation: popup 2s ease;
   bottom: 5rem;

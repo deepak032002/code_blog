@@ -1,17 +1,32 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import styles from '../styles/Home.module.scss'
-
+import Head from "next/head";
+import React from "react";
+import { useSelector } from "react-redux";
+import styles from "../styles/Home.module.scss";
 
 const Home = () => {
-
-  const state = useSelector(state => state)
+  const state = useSelector((state) => state);
   return (
-    <div id="Home" className={`${styles.container}`}>
-        <p>Balance: {state?.connectWallet?.accountBalance}</p>
-        <p>ChainId: {state?.connectWallet?.chainId && parseInt(state?.connectWallet?.chainId)}</p>
-    </div>
-  )
-}
+    <>
+      <Head>
+        <title>DCode - Home</title>
+      </Head>
+      <div id="Home" className={`${styles.container}`}>
+        <p>
+          Balance:{" "}
+          {state?.connectWallet?.web3?.utils.fromWei(
+            state?.connectWallet?.accountBalance,
+            "ether"
+          )}{" "}
+          ETH
+        </p>
+        <p>
+          ChainId:{" "}
+          {state?.connectWallet?.chainId &&
+            parseInt(state?.connectWallet?.chainId)}
+        </p>
+      </div>
+    </>
+  );
+};
 
-export default Home
+export default Home;

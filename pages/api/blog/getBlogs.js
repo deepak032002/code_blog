@@ -1,5 +1,5 @@
-import connectToDb from "../../middleware/db"
-import Blog from "../../model/blog"
+import connectToDb from "../../../middleware/db"
+import Blog from "../../../model/blog"
 
 const handler = async(req, res) => {
     if(req.method == 'GET'){

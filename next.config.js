@@ -10,7 +10,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['images.pexels.com', 'www.educative.io', 'loremflickr.com'],
+    domains: ['images.pexels.com', 'www.educative.io', 'loremflickr.com','localhost','www.codecademy.com'],
   },
 }
 
