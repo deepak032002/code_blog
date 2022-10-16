@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const connectToDb = (handler) => async (req, res) => {
+  console.log(req.method);
   try {
     if (mongoose.connections[0].readyState) {
       return handler(req, res);

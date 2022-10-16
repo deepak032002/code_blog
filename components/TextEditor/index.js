@@ -28,16 +28,13 @@ const TextEditor = () => {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_HOST}/api/blog/getBlogById?id=${id}`
         );
-
-        console.log(res, "jhas");
-
         setData({
           metadesc: res.data.blog.metadesc,
           tags: res.data.blog.tags,
           slug: res.data.blog.slug,
         });
 
-        setHtml(res.data.blog.content)
+        setHtml(res.data.blog.content);
       };
       getData();
     }
@@ -71,24 +68,25 @@ const TextEditor = () => {
   };
 
   const handleBlogSave = async () => {
-    if (data) {
-      const res = await axios.post("http://localhost:3000/api/blog/addBlog", {
-        title: findInHtml(data.html, "<h1>", "<"),
-        image: findInHtml(data.html, 'src="', '"'),
-        slug: data.slug,
-        tags: data.tags,
-        metadesc: data.metadesc,
-        content: data.html,
-      });
+    try {
+      if (data.metadesc && data.slug && data.tags && html) {
+        const res = await axios.post("http://localhost:3000/api/blog/addBlog", {
+          title: findInHtml(html, "<h1>", "<"),
+          image: findInHtml(html, 'src="', '"'),
+          slug: data.slug,
+          tags: data.tags,
+          metadesc: data.metadesc,
+          content: html,
+        });
 
-      if (res.data.success) {
-        alert.success("Blog Saved Successfully!");
-      } else {
-        alert.error("Some Problem Occured!");
+        if (res.data.success) {
+          alert.success("Blog Saved Successfully!");
+        } else {
+          alert.error("Some Problem Occured!");
+        }
       }
-      console.log(res.data);
-    } else {
-      alert.error("Write Some Content Please!");
+    } catch (error) {
+      alert.error(error.response.data.msg.message);
     }
   };
 
@@ -100,36 +98,42 @@ const TextEditor = () => {
   };
 
   const handleBlogUpdate = async () => {
-    if (data) {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_HOST}/api/blog/updateBlog`,
-        {
-          title: findInHtml(data.html, "<h1>", "<"),
-          image: findInHtml(data.html, 'src="', '"'),
-          slug: data.slug,
-          tags: data.tags,
-          metadesc: data.metadesc,
-          content: html,
-        },
-        {
-          headers: {
-            blog_id: id,
+    try {
+      if (data.metadesc && data.slug && data.tags && html) {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_HOST}/api/blog/updateBlog`,
+          {
+            title: findInHtml(html, "<h1>", "<"),
+            image: findInHtml(html, 'src="', '"'),
+            slug: data.slug,
+            tags: data.tags,
+            metadesc: data.metadesc,
+            content: html,
           },
-        }
-      );
+          {
+            headers: {
+              blog_id: id,
+            },
+          }
+        );
 
-      if (res.data.success) {
-        alert.success("Blog Update Successfully!");
+        if (res.data.success) {
+          alert.success("Blog Update Successfully!");
+        }
       } else {
-        alert.error("Some Problem Occured!");
+        alert.error("Fill all the field Please!");
       }
-      console.log(res.data);
-    } else {
-      alert.error("Write Some Content Please!");
+    } catch (error) {
+      alert.error(error.response.data.msg.message);
     }
   };
 
-  if (!isLoadedEditor) return <> {console.log(data)} Loading...</>;
+  if (!isLoadedEditor)
+    return (
+      <div className="grid grid-cols-12 gap-2">
+        <div className="col-span-12 text-center"> Loading... </div>
+      </div>
+    );
 
   return (
     <>
@@ -172,6 +176,7 @@ const TextEditor = () => {
               value={data?.metadesc}
               onChange={handleInput}
               variant="standard"
+              className="focus:border-0"
               label="Meta Description"
             />
             {type === "existing" ? (

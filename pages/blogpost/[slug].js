@@ -35,7 +35,7 @@ const Slug = (p) => {
   useEffect(() => {
     setProps(p);
     Prism.highlightAll();
-  }, [props]);
+  }, [p, props]);
 
   if(!props) return <>Loading...</>
 

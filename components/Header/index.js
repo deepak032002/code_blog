@@ -22,7 +22,7 @@ const Header = () => {
       state?.connectWallet?.provider.on("accountsChanged", (accounts) => {
         dispatch(
           changeWalletCredential(
-            { type: "acc", typeData: {account: accounts[0]} },
+            { type: "acc", typeData: { account: accounts[0] } },
             state?.connectWallet?.web3
           )
         );
@@ -31,7 +31,10 @@ const Header = () => {
       state?.connectWallet?.provider.on("chainChanged", (chainId) => {
         dispatch(
           changeWalletCredential(
-            { type: "chainId", typeData: {chainId, account: state?.connectWallet?.acc} },
+            {
+              type: "chainId",
+              typeData: { chainId, account: state?.connectWallet?.acc },
+            },
             state?.connectWallet?.web3
           )
         );
@@ -61,6 +64,10 @@ const Header = () => {
           <a className={route.route === "/editor" ? styles.active : ""}>
             Editor
           </a>
+        </Link>
+
+        <Link href="/register">
+          <a className={route.route === "/register" ? styles.active : ""}>Register</a>
         </Link>
         {/* {state?.connectWallet?.isConnected ? (
           <>
